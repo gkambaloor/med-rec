@@ -32,6 +32,8 @@ type VisitData struct {
 	HospitalId	string
 	Doctor		string
 	DoctorId	string
+	AdmitDate	string
+	DischargeDate	string
 	Diagnosis	string
 	Notes		string
 	Medication	string
@@ -137,8 +139,8 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	var err error
 	fmt.Println("running write()")
 
-	if len(args) != 7 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 7. ")
+	if len(args) != 9 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 9. ")
 	}
 
 	key = args[0] //Patient Id
@@ -157,9 +159,11 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	visitData.HospitalId = args[1]
 	visitData.Doctor = args[2]
 	visitData.DoctorId = args[3]
-	visitData.Diagnosis = args[4]
-	visitData.Notes = args[5]
-	visitData.Medication = args[6]
+	visitData.AdmitDate = args[4]
+	visitData.DischargeDate = args[5]
+	visitData.Diagnosis = args[6]
+	visitData.Notes = args[7]
+	visitData.Medication = args[8]
 	patData.Visits = append(patData.Visits,visitData)
 	b,err1 := json.Marshal(patData)
 	if err1 != nil {
@@ -195,5 +199,8 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 		jsonResp = "{\"Error\":\"Error unmarshalling for " + key + "\"}"
 		return nil, errors.New(jsonResp)
 	}
+	fmt.Println("Struct = : <%+v> ", patData)
+	jsonResp = fmt.Sprintf ("%+v", patData)
+	valAsbytes = [] byte(jsonResp)
 	return valAsbytes, nil
 }
