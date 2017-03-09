@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"encoding/json"
+	"strings"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
@@ -202,5 +203,8 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	//fmt.Println("Struct = : <%+v> ", patData)
 	//jsonResp = fmt.Sprintf ("%+v", patData)
 	//valAsbytes = [] byte(jsonResp)
+	var str string
+	str = string(valAsbytes)
+	str = strings.Replace(str, "\\", "", -1)
 	return valAsbytes, nil
 }
