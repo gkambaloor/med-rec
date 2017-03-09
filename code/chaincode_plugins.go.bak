@@ -199,8 +199,8 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 		jsonResp = "{\"Error\":\"Error unmarshalling for " + key + "\"}"
 		return nil, errors.New(jsonResp)
 	}
-	//fmt.Println("Struct = : <%+v> ", patData)
-	//jsonResp = fmt.Sprintf ("%+v", patData)
-	//valAsbytes = [] byte(jsonResp)
+	fmt.Println("Struct = : <%+v> ", patData)
+	jsonResp = fmt.Sprintf ("%+v", patData)
+	valAsbytes = [] byte(jsonResp)
 	return valAsbytes, nil
 }
