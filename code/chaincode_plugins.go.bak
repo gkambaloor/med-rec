@@ -205,6 +205,6 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	//valAsbytes = [] byte(jsonResp)
 	var str string
 	str = string(valAsbytes)
-	str = strings.Replace(str, "\", "", -1)
+	str = strings.Replace(str, "\\", "", -1)
 	return valAsbytes, nil
 }
